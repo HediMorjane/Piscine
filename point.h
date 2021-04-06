@@ -1,24 +1,29 @@
 #ifndef POINT_H_INCLUDED
 #define POINT_H_INCLUDED
+#include <iostream>
 
+#include <vector>
 class Point
 {
 public:
     bool isMark = false;
     Point* ant= nullptr;
 
-    Point(int indice, int altitude);
+    Point(int indice);
     ~Point();
 
     /// Getters
     int getindice() const;
-    std::string getnom_lieu() const;
-    int getAltitude();
+    std::string getNomLieu() const;
+    int getAltitude()const;
     std::vector<Point*>& getadj();
 
     ///Setters
 
-    void set_nom_lieu(std::string nom);
+    void setNomLieu(std::string nom);
+    void setAltitude(int altitude);
+
+    void afficher() const;
 
 private:
     int m_indice;

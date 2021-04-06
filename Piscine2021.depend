@@ -1,0 +1,28 @@
+# depslib dependency file v1.0
+1617734176 source:c:\users\cohen\documents\piscine2021\point.cpp
+	"point.h"
+	<iostream>
+
+1617736515 c:\users\cohen\documents\piscine2021\point.h
+	<iostream>
+	<vector>
+
+1617740876 source:c:\users\cohen\documents\piscine2021\main.cpp
+	<iostream>
+	"station.h"
+
+1617739936 c:\users\cohen\documents\piscine2021\station.h
+	<fstream>
+	<algorithm>
+	<math.h>
+	"trajet.h"
+
+1617737381 c:\users\cohen\documents\piscine2021\trajet.h
+	"point.h"
+
+1617737374 source:c:\users\cohen\documents\piscine2021\trajet.cpp
+	"trajet.h"
+
+1617739936 source:c:\users\cohen\documents\piscine2021\station.cpp
+	"station.h"
+

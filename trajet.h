@@ -8,7 +8,7 @@ class Trajet
 {
 
     public:
-    Trajet(int indice,std::string nom_trajet, std::string type,int num_depart, int num_arrive, int temps );
+    Trajet(int indice,int num_depart, int num_arrive);
     ~Trajet();
 
     int getindice() const;
@@ -20,12 +20,19 @@ class Trajet
 
     /// Setter
 
-    void settemps(int temps);
+    void settemps(float temps);
+    void set_nom_trajet(std::string nom_trajet);
+    void set_type(std::string type);
+
 
     ///Methodes d'affichage
+
+    void afficher() const ;
     private:
         int m_indice;
         int m_temps;
+        std::string m_nom_trajet;
+        std::string m_type;
         std::pair<Point*,Point*>m_trajet;
 
-_};
+};
