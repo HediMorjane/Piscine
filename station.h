@@ -12,8 +12,9 @@ public:
     Station(std::string nomFichier);
     ~Station();
     void afficher();
+    std::pair<Point*,Point*> afficherSommet(std::string nom);
 
-
+    std::pair<std::vector <Trajet*>, std::vector<Trajet*> >afficherTrajet(std::string nom);
 
 
 private:
@@ -21,7 +22,6 @@ private:
     std::vector< Trajet*>m_trajets;
     int m_ordre;
     int m_taille;
-
 
 };
 

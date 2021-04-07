@@ -11,18 +11,19 @@ class Trajet
     Trajet(int indice,int num_depart, int num_arrive);
     ~Trajet();
 
-    int getindice() const;
-    std::string get_nom_trajet();
-    std::string get_type();
-    int get_num_depart();
-    int get_num_arrive();
+    int getIndice() const;
+    std::string getNomTrajet();
+    std::string getType();
+    int getNumDepart();
+    int getNumArrive();
+    float getTemps();
     std::pair<Point*,Point*>& gettrajet();
 
     /// Setter
 
-    void settemps(float temps);
-    void set_nom_trajet(std::string nom_trajet);
-    void set_type(std::string type);
+    void setTemps(float temps);
+    void setNomTrajet(std::string nom_trajet);
+    void setType(std::string type);
 
 
     ///Methodes d'affichage

@@ -15,32 +15,37 @@ Trajet::~Trajet()
 
 }
 
-int Trajet::getindice() const
+int Trajet::getIndice() const
 {
     return m_indice;
+
 }
-int Trajet::get_num_depart()
+int Trajet::getNumDepart()
 {
     return m_trajet.first->getindice();
 }
-int Trajet::get_num_arrive()
+int Trajet::getNumArrive()
 {
     return m_trajet.second->getindice();
 }
 
-std::string Trajet::get_nom_trajet()
+std::string Trajet::getNomTrajet()
 {
     return m_nom_trajet;
 }
-std::string Trajet::get_type()
+std::string Trajet::getType()
 {
     return m_type;
 }
-void Trajet::set_nom_trajet(std::string nom_trajet)
+float Trajet::getTemps()
+{
+    return m_temps;
+}
+void Trajet::setNomTrajet(std::string nom_trajet)
 {
     m_nom_trajet=nom_trajet;
 }
-void Trajet::set_type(std::string type)
+void Trajet::setType(std::string type)
 {
     m_type=type;
 }
@@ -48,47 +53,47 @@ std::pair< Point*, Point*>& Trajet::gettrajet()
 {
     return m_trajet;
 }
-void Trajet::settemps(float temps)
+void Trajet::setTemps(float temps)
 {
-    /*switch(type)
+    /*switch(std::string type)
     {
-    case V:
+    case "V":
         m_temps= (300*(m_trajet.first->getAltitude - m_trajet.second->getAltitude))/100;
         break;
-    case B:
+    case "B":
         m_temps= (240*(m_trajet.first->getAltitude - m_trajet.second->getAltitude))/100;
         break;
-    case R:
+    case "R":
         m_temps=  (180*(m_trajet.first->getAltitude - m_trajet.second->getAltitude))/100;
        break;
-    case N:
+    case "N":
         m_temps= (120*(m_trajet.first->getAltitude - m_trajet.second->getAltitude))/100;
         break;
-    case KL:
+    case "KL":
             m_temps= (10*(m_trajet.first->getAltitude - m_trajet.second->getAltitude))/100;
         break;
-    case SURF:
+    case "SURF":
         m_temps= (600*(m_trajet.first->getAltitude - m_trajet.second->getAltitude))/100;
         break;
-    case TPH:
+    case "TPH":
         m_temps = (120*(m_trajet.second->getAltitude - m_trajet.first->getAltitude)/100)+240;
         break;
-    case TC:
+    case "TC":
         m_temps = (180*(m_trajet.second->getAltitude - m_trajet.first->getAltitude)/100)+120;
         break;
-    case TSD:
+    case "TSD":
         m_temps = (180*(m_trajet.second->getAltitude - m_trajet.first->getAltitude)/100)+60;
         break;
-    case TS:
+    case "TS":
         m_temps = (240*(m_trajet.second->getAltitude - m_trajet.first->getAltitude)/100)+60;
         break;
-    case TK:
+    case "TK":
         m_temps = (240*(m_trajet.second->getAltitude - m_trajet.first->getAltitude)/100)+60;
         break;
-    case BUS:
+    case "BUS":
         if (m_indice == 58 || 59)
         {
-            m_temps= 1800
+            m_temps= 1800;
         }
         else if (m_indice == 60 || 61)
         {

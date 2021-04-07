@@ -3,26 +3,27 @@
 	"point.h"
 	<iostream>
 
-1617736515 c:\users\cohen\documents\piscine2021\point.h
+1617808668 c:\users\cohen\documents\piscine2021\point.h
 	<iostream>
+	<string.h>
 	<vector>
 
-1617740876 source:c:\users\cohen\documents\piscine2021\main.cpp
+1617830619 source:c:\users\cohen\documents\piscine2021\main.cpp
 	<iostream>
 	"station.h"
 
-1617739936 c:\users\cohen\documents\piscine2021\station.h
+1617829409 c:\users\cohen\documents\piscine2021\station.h
 	<fstream>
 	<algorithm>
 	<math.h>
 	"trajet.h"
 
-1617737381 c:\users\cohen\documents\piscine2021\trajet.h
+1617789021 c:\users\cohen\documents\piscine2021\trajet.h
 	"point.h"
 
-1617737374 source:c:\users\cohen\documents\piscine2021\trajet.cpp
+1617828160 source:c:\users\cohen\documents\piscine2021\trajet.cpp
 	"trajet.h"
 
-1617739936 source:c:\users\cohen\documents\piscine2021\station.cpp
+1617830226 source:c:\users\cohen\documents\piscine2021\station.cpp
 	"station.h"
 

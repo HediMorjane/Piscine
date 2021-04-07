@@ -1,7 +1,7 @@
 #ifndef POINT_H_INCLUDED
 #define POINT_H_INCLUDED
 #include <iostream>
-
+#include <string.h>
 #include <vector>
 class Point
 {
