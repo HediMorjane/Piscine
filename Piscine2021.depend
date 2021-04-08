@@ -26,3 +26,30 @@
 1617739936 source:c:\users\cohen\documents\piscine2021\station.cpp
 	"station.h"
 
+1617785789 source:c:\users\hédi\desktop\document\cours\info\piscine2021\piscine\main.cpp
+	<iostream>
+	"station.h"
+
+1617785789 c:\users\hédi\desktop\document\cours\info\piscine2021\piscine\station.h
+	<fstream>
+	<algorithm>
+	<math.h>
+	"trajet.h"
+
+1617785789 c:\users\hédi\desktop\document\cours\info\piscine2021\piscine\trajet.h
+	"point.h"
+
+1617785789 c:\users\hédi\desktop\document\cours\info\piscine2021\piscine\point.h
+	<iostream>
+	<vector>
+
+1617785789 source:c:\users\hédi\desktop\document\cours\info\piscine2021\piscine\point.cpp
+	"point.h"
+	<iostream>
+
+1617785789 source:c:\users\hédi\desktop\document\cours\info\piscine2021\piscine\station.cpp
+	"station.h"
+
+1617785789 source:c:\users\hédi\desktop\document\cours\info\piscine2021\piscine\trajet.cpp
+	"trajet.h"
+
