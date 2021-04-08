@@ -55,7 +55,6 @@ int main()
                     std::cout<<" trajet qui permettent d'y arriver:"<<TrajetSelec.second[i]->getNomTrajet()<<std::endl;
                 }
 
-               // std::cout << " trajet qui en partent :"<<TrajetSelec.first->m_trajet[j]<<" trajet qui permettent d'y arriver: "<<TrajetSelec.second->getNomTrajet()<<std::endl;
 
             }
             break;

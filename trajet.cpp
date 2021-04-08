@@ -55,7 +55,7 @@ std::pair< Point*, Point*>& Trajet::gettrajet()
 }
 void Trajet::setTemps(float temps)
 {
-    /*switch(std::string type)
+    /*switch( type)
     {
     case "V":
         m_temps= (300*(m_trajet.first->getAltitude - m_trajet.second->getAltitude))/100;
