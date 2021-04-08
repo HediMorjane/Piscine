@@ -4,6 +4,7 @@
 int main()
 {
     std::cout<<"Quel fichier voulez-vous ouvrir ? ";
+    std::cout<<"Salut";
 
 
     Station nathanael("data_arcs.txt");
