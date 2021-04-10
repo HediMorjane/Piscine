@@ -2,10 +2,10 @@
 
 Trajet::Trajet(int indice,int num_depart, int num_arrive)
 {
-    Point*s1=new Point(num_depart);
+    /*Point*s1=new Point(num_depart);
     Point*s2=new Point(num_arrive);
     m_trajet.first=s1;
-    m_trajet.second=s2;
+    m_trajet.second=s2;*/
     m_indice=indice;
 
 }
@@ -49,49 +49,72 @@ void Trajet::setType(std::string type)
 {
     m_type=type;
 }
+void Trajet::setPointTrajet(std::pair<Point*,Point*> m_trajetGiven)
+{
+    m_trajet=m_trajetGiven;
+}
+
 std::pair< Point*, Point*>& Trajet::gettrajet()
 {
     return m_trajet;
 }
-/*void Trajet::setTemps(const char * str)
-{
-    switch( hash(str))
-    {
-    case hash ("V"):
-        m_temps= (300*(m_trajet.first->getAltitude - m_trajet.second->getAltitude))/100;
-        break;
-    case hash ("B"):
-        m_temps= (240*(m_trajet.first->getAltitude - m_trajet.second->getAltitude))/100;
-        break;
-    case hash ("R"):
-        m_temps=  (180*(m_trajet.first->getAltitude - m_trajet.second->getAltitude))/100;
-       break;
-    case hash ("N"):
-        m_temps= (120*(m_trajet.first->getAltitude - m_trajet.second->getAltitude))/100;
-        break;
-    case hash("KL"):
 
-            m_temps= (10*(m_trajet.first->getAltitude - m_trajet.second->getAltitude))/100;
+void Trajet::initMap()
+{
+    mapType["V"] = V;
+    mapType["B"] = B;
+    mapType["R"] = R;
+    mapType["N"] = N;
+    mapType["KL"] = KL;
+    mapType["SURF"] = SURF;
+    mapType["TPH"] = TPH;
+    mapType["TC"] = TC;
+    mapType["TSD"] = TSD;
+    mapType["TK"] = TK;
+    mapType["BUS"] = BUS;
+    mapType["TS"] = TS;
+}
+
+
+void Trajet::setTemps(std::string type)
+{
+    initMap();
+    switch(mapType[type])
+    {
+    case V:
+        m_temps= (300*(m_trajet.first->getAltitude() - m_trajet.second->getAltitude()))/100;
         break;
-    case hash ("SURF"):
-        m_temps= (600*(m_trajet.first->getAltitude - m_trajet.second->getAltitude))/100;
+    case B:
+        m_temps= (240*(m_trajet.first->getAltitude() - m_trajet.second->getAltitude()))/100;
         break;
-    case hash ("TPH"):
-        m_temps = (120*(m_trajet.second->getAltitude - m_trajet.first->getAltitude)/100)+240;
+    case R:
+        m_temps=  (180*(m_trajet.first->getAltitude() - m_trajet.second->getAltitude()))/100;
+       break;
+    case N:
+        m_temps= (120*(m_trajet.first->getAltitude() - m_trajet.second->getAltitude()))/100;
         break;
-    case hash ("TC"):
-        m_temps = (180*(m_trajet.second->getAltitude - m_trajet.first->getAltitude)/100)+120;
+    case KL:
+        m_temps= (10*(m_trajet.first->getAltitude() - m_trajet.second->getAltitude()))/100;
         break;
-    case hash ("TSD"):
-        m_temps = (180*(m_trajet.second->getAltitude - m_trajet.first->getAltitude)/100)+60;
+    case SURF:
+        m_temps= (600*(m_trajet.first->getAltitude() - m_trajet.second->getAltitude()))/100;
         break;
-    case hash ("TS"):
-        m_temps = (240*(m_trajet.second->getAltitude - m_trajet.first->getAltitude)/100)+60;
+    case TPH:
+        m_temps = (120*(m_trajet.second->getAltitude() - m_trajet.first->getAltitude())/100)+240;
         break;
-    case hash ("TK"):
-        m_temps = (240*(m_trajet.second->getAltitude - m_trajet.first->getAltitude)/100)+60;
+    case TC:
+        m_temps = (180*(m_trajet.second->getAltitude() - m_trajet.first->getAltitude())/100)+120;
         break;
-    case hash ("BUS"):
+    case TSD:
+        m_temps = (180*(m_trajet.second->getAltitude() - m_trajet.first->getAltitude())/100)+60;
+        break;
+    case TS:
+        m_temps = (240*(m_trajet.second->getAltitude() - m_trajet.first->getAltitude())/100)+60;
+        break;
+    case TK:
+        m_temps = (240*(m_trajet.second->getAltitude() - m_trajet.first->getAltitude())/100)+60;
+        break;
+    case BUS:
         if (m_indice == 58 || 59)
         {
             m_temps= 1800;
@@ -100,16 +123,20 @@ std::pair< Point*, Point*>& Trajet::gettrajet()
         {
             m_temps= 2400;
         }
+        else{
+            m_temps = -1;
+        }
         break;
     default:
-        std::cout << "wut?" << std::endl;
+        m_temps = -1;
      break;
 
 
     }
-}*/
+}
+
 void Trajet::afficher() const
 {
-    std::cout<<" "<<m_indice<<" "<< m_nom_trajet<<" "<<m_type<<" "<<m_trajet.first->getindice()<<" "<<m_trajet.second->getindice();
+    std::cout<<" "<<m_indice<<" "<< m_nom_trajet<<" "<<m_type<<" "<<m_trajet.first->getindice()<<" "<<m_trajet.second->getindice()<<" "<<m_temps;
 
 }

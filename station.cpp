@@ -3,7 +3,8 @@
 
 Station::Station(std::string nomFichier)
 {
-    std::ifstream ifs{nomFichier};
+      loadGraph(nomFichier);
+    /*std::ifstream ifs{nomFichier};
     if (!ifs)
         throw std::runtime_error( "Impossible d'ouvrir en lecture " + nomFichier );
 
@@ -49,28 +50,88 @@ Station::Station(std::string nomFichier)
       tamp= rechercheAdj(i+1);
 
        for (unsigned int j=0;j<tamp.size();j++)
-       {   /// std::cout<<"tamp  : "<<tamp[j]<<std::endl;
-
-        //   std::cout<<"POINT ADJ  :  "<<m_points[tamp[j]-1]->getindice();
-          m_points[i]->addAdjBfs(m_points[tamp[j]-1]);///pb aussi ici
-
-          /// std::cout<<"POINT ADJ  :  "<<m_pointadj[j]->getindice();
-
-                /*for(size_t t=0; t<m_points.size();t++)
-            {
+       {
 
 
-        m_points[t]->afficherAdja();}*/
-       }
+          m_points[i]->addAdjBfs(m_points[tamp[j]-1]);
 
-          // m_points[i]->afficherAdja();
+
+
+
 
        }
-
-    /// appel boucle for des points pour associé les adjs  :utilisation de rechercheADJ
+}*/
 }
 
-void Station::afficher()
+void Station::loadGraph(std::string nomFichier){
+    //lecture du fichier
+    std::ifstream ifs{nomFichier};
+    if (!ifs)
+        throw std::runtime_error( "Impossible d'ouvrir en lecture " + nomFichier );
+    //on récupere le nombre de point (m_ordre)
+    ifs >> m_ordre;
+    if ( ifs.fail() )
+        throw std::runtime_error("Probleme lecture ordre du graphe");
+
+    //on initialise le tableau comportant tt les points (m_points)
+    for (int i=0; i<m_ordre; i++) {
+        m_points.push_back( new Point{i+1});
+    }
+
+
+    int indice,altitude;
+    std::string nom;
+    //on ajoute tous les points au tableau m_points
+    for(int i=0; i<m_ordre; i++)
+    {
+        ifs>>indice>> nom >> altitude;
+        if ( ifs.fail() )
+            throw std::runtime_error("Probleme indice du graphe");
+        m_points[i]->setNomLieu(nom);
+        m_points[i]->setAltitude(altitude);
+        m_points[i]->setColor(0);
+    }
+
+    //on récupere le nombre de trajet (taille)
+    int taille;
+    ifs >> taille;
+
+    int node1,node2, indice_trajet;
+    std::string nom_trajet,type;
+    //on ajoute tout les trajets au tableau (m_trajets)
+    for (int i=0; i<taille; ++i)
+    {
+        ifs>>indice_trajet>> nom_trajet>> type>> node1>> node2;
+        if ( ifs.fail() )
+            throw std::runtime_error("Probleme indice du graphe");
+        m_trajets.push_back( new Trajet{indice_trajet, node1,node2});
+        std::pair<Point*,Point*> m_trajetGiven;
+        m_trajetGiven.first = m_points[node1-1];
+        m_trajetGiven.second = m_points[node2-1];
+        m_trajets[i]->setPointTrajet(m_trajetGiven);
+        m_trajets[i]->setNomTrajet(nom_trajet);
+        m_trajets[i]->setType(type);
+        m_trajets[i]->setTemps(type);
+
+    }
+
+    //une fois les trajets trouvé on ajoute au tableau point les points adjacents
+    for(unsigned int i=0; i<m_points.size();i++)
+    {
+        std::vector<int> tamp;
+        tamp= rechercheAdj(i+1);
+
+       for (unsigned int j=0;j<tamp.size();j++)
+       {
+          m_points[i]->addAdjBfs(m_points[tamp[j]-1]);
+       }
+       }
+}
+
+
+
+
+void Station::afficherGraph()
 {
     std::cout<<"ordre = "<<m_points.size()<<std::endl<<"  ";
 
@@ -100,6 +161,8 @@ Station::~Station()
 std::pair<Point*,Point*> Station::afficherSommet(std::string nom)
 {
     std::pair<Point*,Point*> sommetSelected;
+    sommetSelected.first = new Point(-1);
+    sommetSelected.second = new Point(-1);
 
     for (unsigned int i=0; i<m_trajets.size(); i++)
     {
@@ -116,37 +179,6 @@ std::pair<Point*,Point*> Station::afficherSommet(std::string nom)
     }
     return sommetSelected;
 }
-/*std::pair<Trajet*, Trajet*> Station::afficherTrajet(std::string nom)
-{
-    std::pair<Trajet*, Trajet*> trajetSelected;
-    for (unsigned int i=0; i<m_points.size();i++)
-    {
-        std::string tampNom;
-        tampNom=m_points[i]->getNomLieu();
-        if (nom == tampNom)
-        {
-            int x;
-            x = m_points[i]->getindice();
-            for (unsigned int j=0; j<m_trajets.size(); j++)
-            {
-                if (m_trajets[j]->getNumDepart() == x)
-                {
-                    trajetSelected.first.push_back ( m_trajets[j]);
-                }
-                else if (m_trajets[j]->getNumArrive() == x)
-                {
-                    trajetSelected.second.push_back ( m_trajets[j]);
-                }
-            }
-
-            break;
-
-        }
-    }
-
-    return trajetSelected;
-}
-*/
 
 
 std::pair<std::vector <Trajet*>, std::vector<Trajet*>>Station::afficherTrajet(std::string nom)
@@ -225,6 +257,25 @@ void Station::afficherBfs(int point)
 }
 void Station::ParcoursBfs()
 {
+    std::cout<<std::endl<<"1  : Plus court chemin entre deux points ?"<<std::endl<<"2: entre 1 point et les autres? "<<std::endl;
+    int choix;
+    std::cin>>choix;
+    if (choix == 1)
+    {
+        int si, sf;
+        std::cout<<std::endl<<"Par quel sommet voulez-vous debuter le parcours ? "<<std::endl;
+         while(si<0 || si>=m_ordre+1){std::cin>>si;}
+
+        std::cout<<std::endl<<"Par quel sommet voulez-vous finir le parcours ? "<<std::endl;
+        while(sf<0 || sf>=m_ordre+1){std::cin>>sf;}
+
+        m_points[si-1]->BFS();
+        std::cout<<std::endl<<m_points[sf-1]->getindice();
+        m_points[sf-1]->afficherBfs(si);
+
+    }
+
+    else if (choix==2){
     std::cout<<std::endl<<"Par quel sommet voulez-vous debuter le parcours ? "<<std::endl;
     int point = -1;
     while(point<0 || point>=m_ordre+1)
@@ -232,6 +283,42 @@ void Station::ParcoursBfs()
     m_points[point-1]->BFS();
 
 
-    afficherBfs(point);
+
+    afficherBfs(point);}
 }
 
+void Station::reinitialiser()
+{
+    for(size_t i=0;i<m_points.size();i++)
+        m_points[i]->reinitialiser();
+}
+std::vector<Point*>& Station::getTabPoints()
+{
+        return m_points;
+}
+
+std::vector< Trajet*>& Station::getTabTrajets()
+{
+    return m_trajets;
+}
+
+int Station::isPointExistByName(std::string name) {
+    int index = -1;
+
+    for(unsigned int i=0; i<m_points.size();i++) {
+        if(name == m_points[i]->getNomLieu()) {
+            index = m_points[i]->getindice();
+        }
+    }
+    return index;
+}
+int Station::isTrajetExistByName(std::string name) {
+    int index = -1;
+
+    for(unsigned int i=0; i<m_trajets.size();i++) {
+        if(name == m_trajets[i]->getNomTrajet()) {
+            index = m_trajets[i]->getIndice();
+        }
+    }
+    return index;
+}

@@ -32,6 +32,7 @@ public:
     void afficherBfs(int point);
     std::vector<Point*> getAdjacent();
     void setColor(int color);
+    void reinitialiser();
 
 private:
     int m_indice;

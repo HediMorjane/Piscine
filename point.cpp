@@ -102,3 +102,8 @@ void Point::afficher() const
     std::cout<<" "<<m_indice<<" "<<m_nom<<" "<<m_altitude;
 
 }
+void Point::reinitialiser()
+{
+    m_color =0;
+    m_successeur.clear();
+}
