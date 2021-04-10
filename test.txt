@@ -1,0 +1,11 @@
+5
+1	villaroger	1200
+2	aiguille-rouge	3226	
+3	3	2670
+4	4	2195
+5	col-de-la-chal	2600
+4
+1	arandeliere	R	2	3
+2	dou-de-l-homme	N	3	4
+3	plagnettes	TSD	4	5
+4	malgovert	R	1	5

@@ -3,6 +3,8 @@
 #include <iostream>
 #include <string.h>
 #include <vector>
+#include <queue>
+#include<string>
 class Point
 {
 public:
@@ -24,14 +26,23 @@ public:
     void setAltitude(int altitude);
 
     void afficher() const;
+    void afficherAdja();
+    void addAdjBfs(Point* point);
+    void BFS();
+    void afficherBfs(int point);
+    std::vector<Point*> getAdjacent();
+    void setColor(int color);
 
 private:
     int m_indice;
     std::string m_nom;
     int m_altitude;
-    std::vector<std::pair<Point*, int>>point_adj;
+    int m_color;//La couleur
+    std::vector<std::pair<Point*, int>>point_adj;/// dijsktra surement float
+    std::vector<Point*> m_pointadj;
     int m_temps=0;
     Point* point_predecesseur=nullptr;
+    std::vector<Point*> m_successeur;
 
 
 };

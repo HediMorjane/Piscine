@@ -6,12 +6,16 @@ int main()
     ///std::cout<<"Quel fichier voulez-vous ouvrir ? ";
     int choix;
 
-    Station nathanael("data_arcs.txt");
+    Station nathanael("test.txt");
+
+   ///nathanael.afficher();
     do
     {
-        std::cout<<"Choissisez une action : "<<std::endl;
+        std::cout<<std::endl<<"Choissisez une action : "<<std::endl;
         std::cout<<"0: Trouver votre localisation : "<<std::endl;
         std::cout<<"1. Quitter"<<std::endl;
+         std::cout<<"2: Bfs   "<<std::endl;
+        std::cout<<"3: recherche adj   "<<std::endl;
 
         std::cout<<"Entrer votre choix :" << std::endl;
         std::cin>> choix;
@@ -23,6 +27,7 @@ int main()
             int choix2;
             std::cout<<"1: via un trajet  "<<std::endl;
             std::cout<<"2: via un point   "<<std::endl;
+
             std::cout<<"Entrer votre choix :" << std::endl;
             std::cin>> choix2;
 
@@ -48,6 +53,8 @@ int main()
                 for(unsigned int i=0; i<TrajetSelec.first.size();i++)
                 {
                     std::cout << " trajet qui en partent :"<<TrajetSelec.first[i]->getNomTrajet()<<std::endl;
+
+
                 }
 
                 for(unsigned int i=0; i<TrajetSelec.second.size();i++)
@@ -58,6 +65,26 @@ int main()
 
             }
             break;
+        case 2:
+            nathanael.ParcoursBfs();
+
+         break;
+        case 3:
+            { std::vector<int> test;
+                int indice;
+                std::cout<<"entrez l'indice du point"<<std::endl;
+
+                std::cin>>indice;
+
+
+                    test=nathanael.rechercheAdj(indice);
+
+
+                for(unsigned int i=0; i<test.size();i++)
+                {
+                    std::cout<<"indice:"<<test[i]<<std::endl;
+                }
+            }
 
         default:
             break;
@@ -66,6 +93,6 @@ int main()
     while(choix!=4);
 
 
-    /// nathanael.afficher();
+
     return 0;
 }

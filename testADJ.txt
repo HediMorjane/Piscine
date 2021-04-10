@@ -1,0 +1,5 @@
+sommet 1: 	5
+sommet 2: 	3
+sommet 3:	2 4
+sommet 4:	3 5
+sommet 5:	1 5

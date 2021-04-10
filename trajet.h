@@ -21,9 +21,10 @@ class Trajet
 
     /// Setter
 
-    void setTemps(float temps);
+   /// void setTemps(const char * str);
     void setNomTrajet(std::string nom_trajet);
     void setType(std::string type);
+
 
 
     ///Methodes d'affichage

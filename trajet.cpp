@@ -53,44 +53,45 @@ std::pair< Point*, Point*>& Trajet::gettrajet()
 {
     return m_trajet;
 }
-void Trajet::setTemps(float temps)
+/*void Trajet::setTemps(const char * str)
 {
-    /*switch( type)
+    switch( hash(str))
     {
-    case "V":
+    case hash ("V"):
         m_temps= (300*(m_trajet.first->getAltitude - m_trajet.second->getAltitude))/100;
         break;
-    case "B":
+    case hash ("B"):
         m_temps= (240*(m_trajet.first->getAltitude - m_trajet.second->getAltitude))/100;
         break;
-    case "R":
+    case hash ("R"):
         m_temps=  (180*(m_trajet.first->getAltitude - m_trajet.second->getAltitude))/100;
        break;
-    case "N":
+    case hash ("N"):
         m_temps= (120*(m_trajet.first->getAltitude - m_trajet.second->getAltitude))/100;
         break;
-    case "KL":
+    case hash("KL"):
+
             m_temps= (10*(m_trajet.first->getAltitude - m_trajet.second->getAltitude))/100;
         break;
-    case "SURF":
+    case hash ("SURF"):
         m_temps= (600*(m_trajet.first->getAltitude - m_trajet.second->getAltitude))/100;
         break;
-    case "TPH":
+    case hash ("TPH"):
         m_temps = (120*(m_trajet.second->getAltitude - m_trajet.first->getAltitude)/100)+240;
         break;
-    case "TC":
+    case hash ("TC"):
         m_temps = (180*(m_trajet.second->getAltitude - m_trajet.first->getAltitude)/100)+120;
         break;
-    case "TSD":
+    case hash ("TSD"):
         m_temps = (180*(m_trajet.second->getAltitude - m_trajet.first->getAltitude)/100)+60;
         break;
-    case "TS":
+    case hash ("TS"):
         m_temps = (240*(m_trajet.second->getAltitude - m_trajet.first->getAltitude)/100)+60;
         break;
-    case "TK":
+    case hash ("TK"):
         m_temps = (240*(m_trajet.second->getAltitude - m_trajet.first->getAltitude)/100)+60;
         break;
-    case "BUS":
+    case hash ("BUS"):
         if (m_indice == 58 || 59)
         {
             m_temps= 1800;
@@ -100,10 +101,13 @@ void Trajet::setTemps(float temps)
             m_temps= 2400;
         }
         break;
+    default:
+        std::cout << "wut?" << std::endl;
+     break;
 
 
-    }*/
-}
+    }
+}*/
 void Trajet::afficher() const
 {
     std::cout<<" "<<m_indice<<" "<< m_nom_trajet<<" "<<m_type<<" "<<m_trajet.first->getindice()<<" "<<m_trajet.second->getindice();

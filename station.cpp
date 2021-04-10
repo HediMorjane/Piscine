@@ -22,6 +22,7 @@ Station::Station(std::string nomFichier)
             throw std::runtime_error("Probleme indice du graphe");
         m_points[i]->setNomLieu(nom);
         m_points[i]->setAltitude(altitude);
+        m_points[i]->setColor(0);
     }
     int taille;
     ifs >> taille;
@@ -34,7 +35,39 @@ Station::Station(std::string nomFichier)
         m_trajets.push_back( new Trajet{indice_trajet, node1,node2});
         m_trajets[i]->setNomTrajet(nom_trajet);
         m_trajets[i]->setType(type);
+
+
+        /// ajoutez set temps
+
+
     }
+    for(unsigned int i=0; i<m_points.size();i++)
+    {
+        std::vector<int> tamp;
+
+
+      tamp= rechercheAdj(i+1);
+
+       for (unsigned int j=0;j<tamp.size();j++)
+       {   /// std::cout<<"tamp  : "<<tamp[j]<<std::endl;
+
+        //   std::cout<<"POINT ADJ  :  "<<m_points[tamp[j]-1]->getindice();
+          m_points[i]->addAdjBfs(m_points[tamp[j]-1]);///pb aussi ici
+
+          /// std::cout<<"POINT ADJ  :  "<<m_pointadj[j]->getindice();
+
+                /*for(size_t t=0; t<m_points.size();t++)
+            {
+
+
+        m_points[t]->afficherAdja();}*/
+       }
+
+          // m_points[i]->afficherAdja();
+
+       }
+
+    /// appel boucle for des points pour associé les adjs  :utilisation de rechercheADJ
 }
 
 void Station::afficher()
@@ -55,6 +88,9 @@ void Station::afficher()
         s->afficher();
         std::cout<<std::endl;
     }
+
+
+
 }
 
 Station::~Station()
@@ -115,7 +151,9 @@ std::pair<Point*,Point*> Station::afficherSommet(std::string nom)
 
 std::pair<std::vector <Trajet*>, std::vector<Trajet*>>Station::afficherTrajet(std::string nom)
 {
+
     std::pair<std::vector <Trajet*>, std::vector<Trajet*> > trajetSelected;
+
     for (unsigned int i=0; i<m_points.size(); i++)
     {
         std::string tampNom;
@@ -136,6 +174,7 @@ std::pair<std::vector <Trajet*>, std::vector<Trajet*>>Station::afficherTrajet(st
                 {
                     trajetSelected.second.push_back ( m_trajets[j]);
 
+
                 }
             }
 
@@ -145,5 +184,54 @@ std::pair<std::vector <Trajet*>, std::vector<Trajet*>>Station::afficherTrajet(st
     }
 
     return trajetSelected;
+}
+
+
+std::vector<int> Station::rechercheAdj(int indice)
+{
+    std::vector<int> indicePoint;
+    std::string TampNom;
+    std::pair<std::vector <Trajet*>, std::vector<Trajet*> > trajetSelected;
+
+    TampNom=m_points[indice-1]->getNomLieu();
+    trajetSelected= afficherTrajet(TampNom);
+
+    for (unsigned int i=0; i<trajetSelected.first.size(); i++)
+    {
+
+        indicePoint.push_back(trajetSelected.first[i]->getNumArrive() );
+    }
+
+     for (unsigned int i=0; i<trajetSelected.second.size(); i++)
+    {
+
+        indicePoint.push_back(trajetSelected.second[i]->getNumDepart() );
+
+
+    }
+
+    return indicePoint;
+
+}
+
+
+void Station::afficherBfs(int point)
+{
+    for (size_t i=0; i<m_points.size();i++)
+    {
+        std::cout<<std::endl<<m_points[i]->getindice();
+        m_points[i]->afficherBfs(point);
+    }
+}
+void Station::ParcoursBfs()
+{
+    std::cout<<std::endl<<"Par quel sommet voulez-vous debuter le parcours ? "<<std::endl;
+    int point = -1;
+    while(point<0 || point>=m_ordre+1)
+        std::cin>>point;
+    m_points[point-1]->BFS();
+
+
+    afficherBfs(point);
 }
 

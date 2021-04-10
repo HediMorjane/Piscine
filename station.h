@@ -15,6 +15,10 @@ public:
     std::pair<Point*,Point*> afficherSommet(std::string nom);
 
     std::pair<std::vector <Trajet*>, std::vector<Trajet*> >afficherTrajet(std::string nom);
+    std::vector<int> rechercheAdj(int indice);
+
+    void afficherBfs(int point);
+   void ParcoursBfs();
 
 
 private:
