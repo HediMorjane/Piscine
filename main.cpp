@@ -6,9 +6,9 @@ int main()
     ///std::cout<<"Quel fichier voulez-vous ouvrir ? ";
     int choix;
 
-    Station nathanael("test.txt");
+    Station nathanael("data_arcs.txt");
 
-    nathanael.afficherGraph();
+        ///nathanael.afficherGraph();
     do
     {
         std::cout<<std::endl<<"Veuillez choisir une action parmis les choix suivants : "<<std::endl;

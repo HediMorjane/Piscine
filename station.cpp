@@ -264,10 +264,13 @@ void Station::ParcoursBfs()
     {
         int si, sf;
         std::cout<<std::endl<<"Par quel sommet voulez-vous debuter le parcours ? "<<std::endl;
-         while(si<0 || si>=m_ordre+1){std::cin>>si;}
+        do{
+        std::cin>>si;}
+         while(si<0 || si>=m_ordre+1);
 
         std::cout<<std::endl<<"Par quel sommet voulez-vous finir le parcours ? "<<std::endl;
-        while(sf<0 || sf>=m_ordre+1){std::cin>>sf;}
+        do{std::cin>>sf;}
+        while(sf<0 || sf>=m_ordre+1);
 
         m_points[si-1]->BFS();
         std::cout<<std::endl<<m_points[sf-1]->getindice();
