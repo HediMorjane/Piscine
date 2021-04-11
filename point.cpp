@@ -37,15 +37,60 @@ void Point::setColor(int color)
 }
 void Point::addAdjBfs(Point* point)
 {
-
     m_pointadj.push_back(point);
 
+}
+
+void Point::addAdjDijsktra(Point* point,float temps)
+{
+    std::pair<Point*,float> paire(point,temps);
+    point_adj.push_back(paire);
 
 }
 
 std::vector<Point*> Point::getAdjacent()
 {
-    return m_pointadj;
+    return m_pointadj;/// sert a rien ?
+}
+void Point::init(unsigned int point)
+{
+    m_temps=100000;
+    if(m_indice==point)
+        m_temps=0;
+}
+float Point::getTemps()
+{
+    return m_temps;
+}
+void Point::Dijsktra(std::vector<Point*> sousgraphe)
+{
+    int cpt=0;
+    for(size_t i=0; i<point_adj.size();i++)
+    {
+        for(size_t j=0;j<sousgraphe.size();j++)
+        {
+            if(sousgraphe[j]->getindice() == point_adj[i].first->getindice())
+                cpt++;
+        }
+        if (cpt== 0 && point_adj[i].first->m_temps> m_temps + point_adj[i].second )
+        {
+            point_adj[i].first->m_temps= m_temps+ point_adj[i].second;
+            point_adj[i].first->point_predecesseur=this;
+        }
+        cpt=0;
+
+
+
+    }
+}
+void Point::afficherDijkstra()
+{
+     if(point_predecesseur!=nullptr)
+    {
+        std::cout<<m_indice <<" <-- ";
+        point_predecesseur->afficherDijkstra();
+
+    }
 }
 void Point::BFS()
 {
@@ -91,10 +136,10 @@ void Point::afficherBfs(int point)
 
 void Point::afficherAdja()
 {
-    std::cout<<m_pointadj.size()<<std::endl;
-    for (size_t i=0; i< m_pointadj.size(); i++)
+
+    for (size_t i=0; i< point_adj.size(); i++)
     {
-        std::cout<<" "<<m_pointadj[i]->getindice();
+        std::cout<<" "<<point_adj[i].first->getindice()<<" temps: "<<point_adj[i].second;
     }
 }
 void Point::afficher() const
@@ -106,4 +151,6 @@ void Point::reinitialiser()
 {
     m_color =0;
     m_successeur.clear();
+      m_temps=0;
+    point_predecesseur=nullptr;
 }

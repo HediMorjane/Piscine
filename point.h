@@ -33,15 +33,21 @@ public:
     std::vector<Point*> getAdjacent();
     void setColor(int color);
     void reinitialiser();
+    void addAdjDijsktra(Point* point,float temps);
+    void init(unsigned int point);
+    void Dijsktra(std::vector<Point*> sousgraphe);
+    void afficherDijkstra();
+    float getTemps();
+
 
 private:
     int m_indice;
     std::string m_nom;
     int m_altitude;
     int m_color;//La couleur
-    std::vector<std::pair<Point*, int>>point_adj;/// dijsktra surement float
+    std::vector<std::pair<Point*, float>>point_adj; /// dijsktra
     std::vector<Point*> m_pointadj;
-    int m_temps=0;
+    float m_temps=0;
     Point* point_predecesseur=nullptr;
     std::vector<Point*> m_successeur;
 

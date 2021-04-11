@@ -19,15 +19,21 @@ public:
     std::pair<Point*,Point*> afficherSommet(std::string nom);
 
     std::pair<std::vector <Trajet*>, std::vector<Trajet*> >afficherTrajet(std::string nom);
-    std::vector<int> rechercheAdj(int indice);
+    std::vector<std::pair <Point*,float>> rechercheAdj(int indice);
     int isPointExistByName(std::string name);
     int isTrajetExistByName(std::string name);
 
     void afficherBfs(int point);
-   void ParcoursBfs();
-        void loadGraph(std::string nomFichier);
+    void ParcoursBfs();
+    void loadGraph(std::string nomFichier);
+    void Dijsktra();
+    unsigned int initialisation(unsigned int& pointf);
 
     void reinitialiser();
+    void afficherDijkstra(unsigned int pointf, unsigned int pointi, float temps);
+    void afficherDijkstraAll(unsigned int pointi, float temps);
+    unsigned int initialisationAll();
+
 
 private:
     std::vector< Point*>m_points;

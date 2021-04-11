@@ -9,7 +9,7 @@ class Trajet
 {
 
     public:
-    Trajet(int indice,int num_depart, int num_arrive);
+    Trajet(int indice);
     enum enumAllType {V,B,R,N,KL,SURF,TPH,TC,TSD,TK,BUS,TS};
     ~Trajet();
 
@@ -33,7 +33,7 @@ class Trajet
     void afficher() const ;
     private:
         int m_indice;
-        int m_temps;
+        float m_temps;
         std::string m_nom_trajet;
         std::string m_type;
         std::pair<Point*,Point*>m_trajet;

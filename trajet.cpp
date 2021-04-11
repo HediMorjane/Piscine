@@ -1,11 +1,8 @@
 #include "trajet.h"
 
-Trajet::Trajet(int indice,int num_depart, int num_arrive)
+Trajet::Trajet(int indice)
 {
-    /*Point*s1=new Point(num_depart);
-    Point*s2=new Point(num_arrive);
-    m_trajet.first=s1;
-    m_trajet.second=s2;*/
+
     m_indice=indice;
 
 }

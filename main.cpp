@@ -8,13 +8,15 @@ int main()
 
     Station nathanael("data_arcs.txt");
 
-        ///nathanael.afficherGraph();
+
+        nathanael.afficherGraph();
     do
     {
         std::cout<<std::endl<<"Veuillez choisir une action parmis les choix suivants : "<<std::endl;
         std::cout<<"    0: Trouver votre localisation : "<<std::endl;
         std::cout<<"    1: Trouver mon plus court chemin (BFS)  "<<std::endl;
         std::cout<<"    2: Rechercher mes sommets ADJ   "<<std::endl;
+        std::cout<<"    3:Trouver mon plus court chemin (Dijsktra)  "<<std::endl;
         std::cout<<"    4. Quitter "<<std::endl;
 
         std::cout<<"Entrer votre choix :" << std::endl;
@@ -98,7 +100,7 @@ int main()
             break;
         case 2:
         {
-            std::vector<int> test;
+            std::vector<std::pair <Point*,float>>test;
             int indice;
             std::cout<<"Entrez l'indice du point"<<std::endl;
 
@@ -108,9 +110,12 @@ int main()
 
             for(unsigned int i=0; i<test.size(); i++)
             {
-                std::cout<<"indice:"<<test[i]<<std::endl;
+                std::cout<<"indice:"<<test[i].first->getindice()<<std::endl;
             }
         }
+        case 3:
+            nathanael.Dijsktra();
+            nathanael.reinitialiser();
 
         default:
             break;
