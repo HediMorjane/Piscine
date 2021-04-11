@@ -62,15 +62,15 @@ void Station::loadGraph(std::string nomFichier){
     //une fois les trajets trouvé on ajoute au tableau point les points adjacents
     for(unsigned int i=0; i<m_points.size();i++)
     {
-        std::vector<std::pair <Point*,float >> tamp;
+        std::vector<std::pair <Point*,PointInfoTrajet* >> tamp;
         tamp= rechercheAdj(i+1);
 
        for (unsigned int j=0;j<tamp.size();j++)
        {
            int index;
            index=tamp[j].first->getindice()-1;
-          m_points[i]->addAdjBfs(m_points[index]);
-          m_points[i]->addAdjDijsktra(tamp[j].first,tamp[j].second);
+          m_points[i]->addAdjBfs(m_points[index],tamp[j].second->getPointInfoType());
+          m_points[i]->addAdjDijsktra(m_points[index],tamp[j].second);
 
        }
        }
@@ -176,9 +176,9 @@ std::pair<std::vector <Trajet*>, std::vector<Trajet*>>Station::afficherTrajet(st
 }
 
 
-std::vector<std::pair <Point*,float>>Station::rechercheAdj(int indice)
+std::vector<std::pair <Point*,PointInfoTrajet*>>Station::rechercheAdj(int indice)
 {
-    std::vector<std::pair <Point*,float >> indicePoint;
+    std::vector<std::pair <Point*,PointInfoTrajet* >> indicePoint;
     std::string TampNom;
     std::pair<std::vector <Trajet*>, std::vector<Trajet*> > trajetSelected;
 
@@ -187,21 +187,23 @@ std::vector<std::pair <Point*,float>>Station::rechercheAdj(int indice)
 
     for (unsigned int i=0; i<trajetSelected.first.size(); i++)
     {
-        std::pair<Point*,float> data;
+        std::pair<Point*,PointInfoTrajet*> data;
         int indiceArrive = trajetSelected.first[i]->getNumArrive()-1;
-
+        PointInfoTrajet* dataPointInfo = new PointInfoTrajet("S",trajetSelected.first[i]->getTemps());
         data.first=m_points[indiceArrive];
-        data.second=trajetSelected.first[i]->getTemps();
+        data.second=dataPointInfo;
         indicePoint.push_back(data);
 
     }
 
      for (unsigned int i=0; i<trajetSelected.second.size(); i++)
     {
-        std::pair<Point*,float> data1;
+        std::pair<Point*,PointInfoTrajet*> data1;
         int indiceDepart = trajetSelected.second[i]->getNumDepart()-1;
+        PointInfoTrajet* dataPointInfo1 = new PointInfoTrajet("P",trajetSelected.second[i]->getTemps());
+
         data1.first=m_points[indiceDepart];
-        data1.second=trajetSelected.second[i]->getTemps();
+        data1.second=dataPointInfo1;
         indicePoint.push_back(data1);
 
     }
@@ -364,16 +366,29 @@ void Station::afficherDijkstraAll(unsigned int pointi, float temps)
     for (size_t i=0; i<m_points.size();i++)
     {temps=m_points[i]->getTemps();
     m_points[i]->afficherDijkstra();
+    if(temps<100000)
+    {
      std::cout<<pointi<<" : temps = "<<temps<<std::endl;
-
     }
+    else
+    {
+        std::cout<<i+1<<" inateignable" <<std::endl;
+    }
+}
 }
 void Station::afficherDijkstra(unsigned int pointf, unsigned int pointi, float temps)
 {
     std::cout<<std::endl;
     temps=m_points[pointf-1]->getTemps();
     m_points[pointf-1]->afficherDijkstra();
-     std::cout<<pointi<<" : temps = "<<temps<<std::endl;
+    if(temps<100000)
+    {
+        std::cout<<pointi<<" : temps = "<<temps<<std::endl;
+    }
+    else
+    {
+        std::cout<<"inateignable" <<std::endl;
+    }
 }
 int Station::isPointExistByName(std::string name) {
     int index = -1;

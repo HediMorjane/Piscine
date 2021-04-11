@@ -6,7 +6,7 @@ int main()
     ///std::cout<<"Quel fichier voulez-vous ouvrir ? ";
     int choix;
 
-    Station nathanael("data_arcs.txt");
+    Station nathanael("test.txt");
 
 
         nathanael.afficherGraph();
@@ -100,7 +100,7 @@ int main()
             break;
         case 2:
         {
-            std::vector<std::pair <Point*,float>>test;
+            std::vector<std::pair <Point*,PointInfoTrajet*>>test;
             int indice;
             std::cout<<"Entrez l'indice du point"<<std::endl;
 
@@ -110,9 +110,10 @@ int main()
 
             for(unsigned int i=0; i<test.size(); i++)
             {
-                std::cout<<"indice:"<<test[i].first->getindice()<<std::endl;
+                std::cout<<"indice:"<<test[i].first->getindice()<<"  "<<test[i].second->getPointInfoType()<<std::endl;
             }
         }
+        break;
         case 3:
             nathanael.Dijsktra();
             nathanael.reinitialiser();

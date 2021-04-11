@@ -19,7 +19,7 @@ public:
     std::pair<Point*,Point*> afficherSommet(std::string nom);
 
     std::pair<std::vector <Trajet*>, std::vector<Trajet*> >afficherTrajet(std::string nom);
-    std::vector<std::pair <Point*,float>> rechercheAdj(int indice);
+    std::vector<std::pair <Point*,PointInfoTrajet*>> rechercheAdj(int indice);
     int isPointExistByName(std::string name);
     int isTrajetExistByName(std::string name);
 

@@ -35,20 +35,28 @@ void Point::setColor(int color)
 {
     m_color=color;
 }
-void Point::addAdjBfs(Point* point)
+void Point::addAdjBfs(Point* point,std::string type)
 {
-    m_pointadj.push_back(point);
+    std::pair<Point*,std::string> data;
+    data.first=point;
+    data.second = type;
+    m_pointadj.push_back(data);
 
 }
 
-void Point::addAdjDijsktra(Point* point,float temps)
+void Point::addAdjDijsktra(Point* point,PointInfoTrajet* pointInfo)
 {
-    std::pair<Point*,float> paire(point,temps);
-    point_adj.push_back(paire);
+
+    std::pair<Point*,PointInfoTrajet*> paire(point,pointInfo);
+    std:: string type = pointInfo->getPointInfoType();
+    if( type.compare("S") == 0 )
+    {
+        point_adj.push_back(paire);
+    }
 
 }
 
-std::vector<Point*> Point::getAdjacent()
+std::vector<std::pair<Point*,std::string>> Point::getAdjacent()
 {
     return m_pointadj;/// sert a rien ?
 }
@@ -65,16 +73,16 @@ float Point::getTemps()
 void Point::Dijsktra(std::vector<Point*> sousgraphe)
 {
     int cpt=0;
-    for(size_t i=0; i<point_adj.size();i++)
+    for(size_t i=0; i<point_adj.size(); i++)
     {
-        for(size_t j=0;j<sousgraphe.size();j++)
+        for(size_t j=0; j<sousgraphe.size(); j++)
         {
             if(sousgraphe[j]->getindice() == point_adj[i].first->getindice())
                 cpt++;
         }
-        if (cpt== 0 && point_adj[i].first->m_temps> m_temps + point_adj[i].second )
+        if (cpt== 0 && point_adj[i].first->m_temps> m_temps + point_adj[i].second->getPointInfoTemps())
         {
-            point_adj[i].first->m_temps= m_temps+ point_adj[i].second;
+            point_adj[i].first->m_temps= m_temps+ point_adj[i].second->getPointInfoTemps();
             point_adj[i].first->point_predecesseur=this;
         }
         cpt=0;
@@ -85,7 +93,7 @@ void Point::Dijsktra(std::vector<Point*> sousgraphe)
 }
 void Point::afficherDijkstra()
 {
-     if(point_predecesseur!=nullptr)
+    if(point_predecesseur!=nullptr)
     {
         std::cout<<m_indice <<" <-- ";
         point_predecesseur->afficherDijkstra();
@@ -104,13 +112,15 @@ void Point::BFS()
         for(size_t i=0; i<file.front()->m_pointadj.size(); i++)
         {
 
-            if (file.front()->m_pointadj[i]->m_color==0)
+            if (file.front()->m_pointadj[i].first->m_color==0)
             {
-
-                file.front()->m_pointadj[i]->m_color=2;
-                file.push(file.front()->m_pointadj[i]);
-
-                file.front()->m_pointadj[i]->m_successeur.push_back(file.front());
+                std:: string type = file.front()->m_pointadj[i].second;
+                if( type.compare("S") == 0 )
+                {
+                    file.front()->m_pointadj[i].first->m_color=2;
+                    file.push(file.front()->m_pointadj[i].first);
+                    file.front()->m_pointadj[i].first->m_successeur.push_back(file.front());
+                }
 
             }
 
@@ -151,6 +161,6 @@ void Point::reinitialiser()
 {
     m_color =0;
     m_successeur.clear();
-      m_temps=0;
+    m_temps=0;
     point_predecesseur=nullptr;
 }

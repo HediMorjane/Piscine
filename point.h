@@ -5,12 +5,10 @@
 #include <vector>
 #include <queue>
 #include<string>
+#include "PointInfoTrajet.h"
 class Point
 {
 public:
-    bool isMark = false;
-    Point* ant= nullptr;
-
     Point(int indice);
     ~Point();
 
@@ -27,13 +25,13 @@ public:
 
     void afficher() const;
     void afficherAdja();
-    void addAdjBfs(Point* point);
+    void addAdjBfs(Point* point,std::string type);
     void BFS();
     void afficherBfs(int point);
-    std::vector<Point*> getAdjacent();
+    std::vector<std::pair<Point*,std::string>>  getAdjacent();
     void setColor(int color);
     void reinitialiser();
-    void addAdjDijsktra(Point* point,float temps);
+    void addAdjDijsktra(Point* point,PointInfoTrajet* pointInfo);
     void init(unsigned int point);
     void Dijsktra(std::vector<Point*> sousgraphe);
     void afficherDijkstra();
@@ -45,8 +43,8 @@ private:
     std::string m_nom;
     int m_altitude;
     int m_color;//La couleur
-    std::vector<std::pair<Point*, float>>point_adj; /// dijsktra
-    std::vector<Point*> m_pointadj;
+    std::vector<std::pair<Point*, PointInfoTrajet* >>point_adj; /// dijsktra
+    std::vector<std::pair<Point*,std::string>> m_pointadj;
     float m_temps=0;
     Point* point_predecesseur=nullptr;
     std::vector<Point*> m_successeur;
